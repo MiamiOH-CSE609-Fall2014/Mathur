@@ -32,7 +32,11 @@ int main()
     { printf("Illegal size of matrix for multiplication. Please enter correct dimensions and retry \n");
       return 1;
     }
-
+if((rm1&&cm1)==0 || (rm2&&cm2)==0)
+{ printf("Enter valid size of matrix \n");
+return 1;
+}
+ 	
   input.erase(input.begin(),input.begin()+4);
 
   mat1.resize(rm1);
