@@ -34,9 +34,11 @@ int main()
     }
 
   input.erase(input.begin(),input.begin()+4);
+
   mat1.resize(rm1);
   mat2.resize(rm2);
   mat3.resize(rm1);
+
   int k=0;
   for(int i=0;i<rm1;i++)
     {for(int j=0;j<cm1;j++)
@@ -66,7 +68,29 @@ int main()
 	}
       cout<<endl;
     }
+cout<<endl;
+int n=0;
+  for(int i=0;i<rm1;i++)
 
-
-  return 0;
+	{for (int j=0;j<cm2;j++)
+ 	
+		{for (int k=0;k<cm1;k++)
+		{
+		n+=mat1[i][k]*mat2[k][j];		
+		}
+		mat3[i].push_back(n);
+		
+		n=0;
+		
+		}	
+	}	
+	
+for(int i=0;i<rm1;i++)
+    {for(int j=0;j<cm2;j++)
+        {cout<<" "<<mat3[i][j];
+        }
+      cout<<endl;
+    }
+  cout<<endl;
+return 0;
 }
