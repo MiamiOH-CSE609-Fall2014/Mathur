@@ -10,14 +10,18 @@
 
 using namespace std;
 
-  string name;
-  string g;  
-  double grade;
-  vector<double> gradedb;
-  vector<string> namedb;
-  vector<char> lgrades;
-  double avg=0.0;
-  double dev=0.0;
+string name;
+string g;  
+double grade;
+vector<double> gradedb;
+vector<string> namedb;
+vector<char> lgrades;
+double avg=0.0;
+double stdev=0.0;
+double A=0.0;
+double B=0.0;
+double C=0.0;
+double D=0.0;
 
 
 void NameAndGradeDB() //function for entering name and grade to the data base
@@ -61,7 +65,7 @@ void NameAndGradeDB() //function for entering name and grade to the data base
 }
 
 
-void find_av_mean()
+void av_me_gscale()
 { vector<double>::size_type gradedb_sz = gradedb.size();
   for(int j=0;j<gradedb_sz;j++)
     avg+=avg/gradedb[j]; //calculating the average
@@ -69,9 +73,27 @@ void find_av_mean()
   avg=avg/gradedb_sz();
 
   for(j=0;j<gradedb_sz;j++)
-    dev+=pow((gradedb[i]-avg),2);
+    stdev+=pow((gradedb[i]-avg),2);
 
-  dev=pow((dev/gradedb_sz),1/2));//calculating the stdev
+  stdev=pow((dev/gradedb_sz),1/2));//calculating the stdev
+
+  A = (1.5*stdev)+avg;
+  B = (0.5*stdev)+avg;
+  C = (-0.5*stdev)+avg;
+  D = (-1.5*stdev)+avg;
+
+printf("\n****Grading scale****\n");
+
+if(A>100)
+  printf("A above 100.0% \n");
+ else
+   printf("A above %.1f% \n", A);
+
+printf("B %.1f% - %.1f% \n", B, A);
+printf("C %.1f% - %.1f% \n", C, B);
+printf("D %.1f% - %.1f% \n", D, C);
+printf("F below %.1f%  \n\n",D);
 }
+
 
 
