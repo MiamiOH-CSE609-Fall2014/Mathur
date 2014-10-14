@@ -66,9 +66,12 @@ void find_av_mean()
   for(int j=0;j<gradedb_sz;j++)
     avg+=avg/gradedb[j]; //calculating the average
 
+  avg=avg/gradedb_sz();
+
   for(j=0;j<gradedb_sz;j++)
-    dev+=pow((gradedb[i]-avg),2.0);
+    dev+=pow((gradedb[i]-avg),2);
 
-  dev=sqrt(dev/gradedb_sz);
-
+  dev=pow((dev/gradedb_sz),1/2));//calculating the stdev
 }
+
+
