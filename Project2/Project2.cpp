@@ -81,7 +81,7 @@ void NameAndGradeDB() //function for entering name and grade to the data base
         
     grade=atof(g.c_str()); //changing string to double
 
-    if(g.empty() || grade<0.00 || grade>100.00) 
+    while(g.empty() || grade<0.00 || grade>100.00) 
       {cout<<"Invalid range of grades. Please re-enter grade"<<endl;
 	getline(cin,g);
 	grade=atof(g.c_str());
@@ -160,21 +160,22 @@ int main()
     
   k=len_func(gradedb[1]);
 
-  for(int i=0;i<gradedb_sz-1;i++)
+  for(int i=0;i<gradedb_sz;i++)
     {lgrades.push_back(letter_grade(gradedb[i]));
 		       }		  
 
 
-      cout<<"Name"<<setw(15)<<"Score"<<setw(15)<<"Grade"<<endl;
+  cout<<"Name"<<"\t \t \t \t  "<<right<<"Score"<<"\t \t \t \t"<<right<<"Grade"<<endl;
       vector<double>::size_type namedb_sz = namedb.size();
-
+      
   for(int i=0;i<namedb_sz;i++)
-    {cout<<i+1<<"."<<left<<namedb[i]<<setw(15)<<right<<setprecision(k+1)<<gradedb[i]<<setw(15)<<right<<lgrades[i]<<endl;
+    { int f=namedb[i].length();
+      cout<<i+1<<"."<<left<<namedb[i]<<"     \t\t\t"<<right<<setprecision(k+1)<<showpoint<<gradedb[i]<<"   \t \t \t"<<right<<lgrades[i]<<endl;
     }
 
   k=len_func(avg);
-  cout<<setw(15)<<"Class Average ="<<setprecision(k+2)<<avg<<endl;
-  cout<<"Standard Deviation ="<<setprecision(k+2)<<stdev<<endl;
+  cout<<setw(15)<<"Class Average ="<<setprecision(k+2)<<showpoint<<avg<<endl;
+  cout<<"Standard Deviation ="<<setprecision(k+2)<<showpoint<<stdev<<endl;
     }
   
   else {cout<<"database is empty, exiting the application"<<endl;
