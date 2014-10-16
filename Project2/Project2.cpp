@@ -165,17 +165,19 @@ int main()
 		       }		  
 
 
-  cout<<"Name"<<"\t \t \t \t  "<<right<<"Score"<<"\t \t \t \t"<<right<<"Grade"<<endl;
+  cout<<setw(18)<<"Name"<<"\t \t \t \t"<<right<<"Score"<<"\t\t\t"<<right<<"Grade"<<endl;
       vector<double>::size_type namedb_sz = namedb.size();
       
   for(int i=0;i<namedb_sz;i++)
     { int f=namedb[i].length();
-      cout<<i+1<<"."<<left<<namedb[i]<<"     \t\t\t"<<right<<setprecision(k+1)<<showpoint<<gradedb[i]<<"   \t \t \t"<<right<<lgrades[i]<<endl;
+      cout<<i+1<<"."<<" "<<setw(25)<<left<<namedb[i]<<"  \t \t\t"<<right<<setprecision(k+1)<<showpoint<<gradedb[i]<<"\t \t \t"<<right<<lgrades[i]<<endl;
+      cout<<endl;
     }
 
   k=len_func(avg);
+  cout<<endl;
   cout<<setw(15)<<"Class Average ="<<setprecision(k+2)<<showpoint<<avg<<endl;
-  cout<<"Standard Deviation ="<<setprecision(k+2)<<showpoint<<stdev<<endl;
+  cout<<"Standard Deviation ="<<setprecision(k+2)<<showpoint<<stdev<<"\n"<<endl;
     }
   
   else {cout<<"database is empty, exiting the application"<<endl;
