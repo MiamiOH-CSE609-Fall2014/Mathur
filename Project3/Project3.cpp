@@ -104,66 +104,25 @@ if(datafile.is_open())
 }
 
 
-/*
-tuple<int, int> scoreSequence(string haystack, string needle, vector< vector<int> > scoring_m)
-{size_t h_len=haystack.length();
- size_t n_len=needle.length();
- int highScore = 0;  
-
-  string::iterator ned;
-
-  string dgm[] = {"A", "G", "C", "T"};
-  string l_1;
-  string l_2;
-  int r,c, ix,sum;
-  string::iterator k;
-  //  string::iterator hs = haystack.begin();
-  cout<<"inside score seq 0"<<endl;
-  string::iterator ned_begin= needle.begin();
-  string::iterator ned_end=needle.end();
-
-  for(int i = 0; i < (h_len - n_len + 1); i++)
-{  string::iterator hs = haystack.begin();
-  advance(hs, i);
-      sum = 0;
-      k = hs;      
-for(ned = ned_begin; ned != ned_end; ++ned)
-	{ l_1 = *k;
-	  cout<<"inside score seq 1"<<endl;
-	  l_2 = *ned;
-	  if (l_1 == dgm[0]) 
-	    r = 0;
-	  if (l_1 == dgm[1]) 
-	    r = 1;
-
-	  if (l_1 == dgm[2]) 
-	    r = 2;
-	  if (l_1 == dgm[3]) 
-	    r = 3;
-	  cout<<"inside score seq 2"<<endl;
-	  if(l_2 == dgm[0]) 
-	    c= 0;
-	  if(l_2 == dgm[1]) 
-	    c = 1;
-	  if(l_2 == dgm[2]) 
-	    c = 2;
-	  if(l_2 == dgm[3]) 
-	    c = 3;
-	  cout<<"inside score seq 3"<<endl;
-      	  cout<<c<<" "<<r<<endl;  
-	  sum += scoring_m[c][r];
-	  cout<<"inside score seq 4"<<endl;
-	    ++k;
-	}
-      if(highScore<sum)
-	{ highScore = sum;
-	  ix = i;
-	}
-      cout<<"inside score seq 2"<<endl;   
- }  
-  return make_tuple(ix, highScore);
+tuple<int,int> scoreSequence(string haystack,string needle, vector<vector<int>> scoring_m) 
+{ string substring;
+  map<char,int> ranks = {{'A',0},{'G',1},{'C',2},{'T',3}};
+  size_t hl= haystack.length(),nl= needle.length();
+  int highScore = 0,ix = 0, tempScore=0;  
+for (int i = 0; i < hl-nl+1; i++) 
+  { tempScore = 0;
+    substring = haystack.substr(i,needle.length());
+    
+    for (int j = 0; j < nl; j++) 
+      tempScore+=scoring_m[ranks[substring[j]]][ranks[needle[j]]];
+      
+    if(highScore<tempScore) 
+    {ix=i;
+     highScore = tempScore;
+    }
+  }
+  return make_tuple(ix,highScore);
 }
-*/
 
 
 
@@ -171,17 +130,17 @@ for(ned = ned_begin; ned != ned_end; ++ned)
 tuple<int, int, string> findHighScore(string haystack, vector<string> needles, vector<vector<int>> scoring_m)
 {
   tuple <int, int, string> high_score_tup;
-  cout<<"inside findHighScore 0"<<endl;
+  // cout<<"inside findHighScore 0"<<endl;
   tuple <int, int> temp_scoreSeq;
   temp_scoreSeq= scoreSequence(haystack, needles[0], scoring_m); 
   
-cout<<"inside findHighScore 1"<<endl;
+  //cout<<"inside findHighScore 1"<<endl;
 
   get<0>(high_score_tup) = get<0>(temp_scoreSeq);
-  cout<<"inside findHighScore 2"<<endl;
+  //cout<<"inside findHighScore 2"<<endl;
   get<1>(high_score_tup) = get<1>(temp_scoreSeq);
   get<2>(high_score_tup) = needles[0];
-  cout<<"inside findHighScore"<<endl;
+  //cout<<"inside findHighScore"<<endl;
   for(int i = 1; i < needles.size(); ++i)
 { temp_scoreSeq = scoreSequence(haystack, needles[i], scoring_m);
   if(get<1>(temp_scoreSeq) > get<1>(high_score_tup))
@@ -190,7 +149,7 @@ cout<<"inside findHighScore 1"<<endl;
 	get<2>(high_score_tup) = needles[i];
     }
   }
-  cout<<"returning high score"<<endl;
+  //cout<<"returning high score"<<endl;
   return high_score_tup;
 }
 
@@ -278,11 +237,11 @@ string dgm[] = {"AA", "AG", "AC", "AT", "GA", "GG", "GC", "GT", "CA", "CG", "CC"
       seqs.push_back(lines);
     }
   string sequence = get<2>(Fasta);
-  cout<<"before entering findhighscore func"<<endl;
+  //cout<<"before entering findhighscore func"<<endl;
   tuple<int, int, string> highestScorer = findHighScore(sequence, seqs, score_mat);
-  cout << "Scoring Sequence: " << get<2>(highestScorer); 
-  cout << "Highest Score of Sequence: " << get<1>(highestScorer);
-  cout << "Position of Highest Score Sequence " << get<0>(highestScorer) << endl; 
+  cout << "\nScoring Sequence: " << get<2>(highestScorer)<<endl; 
+  cout << "Highest Score of Sequence: " << get<1>(highestScorer)<<endl;
+  cout << "Position of Highest Score Sequence: " << get<0>(highestScorer) << endl; 
   cout <<"\n";
   return 0;
 }
