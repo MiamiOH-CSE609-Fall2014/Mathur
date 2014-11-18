@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<iostream>
+#include<string.h>
+#include<algorithm>
+#include<stdlib.h>
+#include<vector>
+#include<cctype>
+#include<math.h>
+
+
+using namespace std;
+
+  string name;
+  string g;  
+  double grade;
+  vector<double> gradedb;
+  vector<string> namedb;
+  vector<char> lgrades;
+  double avg=0.0;
+  double dev=0.0;
+
+
+void NameAndGradeDB() //function for entering name and grade to the data base
+
+{int r=1;
+
+  while(r)
+  { cout << "Please enter a student’s first and last name or ‘NONE’ to quit \n";
+    getline(cin,name);
+
+    while(find_if(name.begin(),name.end(),(int(*)(int))isdigit)!=name.end())
+      {printf("invalid input, enter a string \n"); //check to see if the input was a string and not a numerical value
+	getline(cin,name);
+       continue;
+      } 
+   
+    if (name=="NONE" || name="none" || name="None")
+      r=0; //will exit from the loop
+    
+    if(name.empty()) //check to see if a blank was inserted
+      { cout<<"you entered a blank space, please enter a name"<<endl;
+	getline(cin,name);
+	if(find_if(name.begin(),name.end(),(int(*)(int))isdigit)!=name.end())
+	  {printf("invalid input, enter a string \n");
+	    getline(cin,name);
+	  }
+      }
+    namedb.push_back(name);
+  
+    cout<<"Please enter the grade of student \n";
+    getline(cin,g);
+    grade=atof(g.c_str());
+    while(g.empty() || grade<0.00 || grade>100.00) 
+      {cout<<"Invalid range of grades. Please re-enter grade"<<endl;
+	getline(cin,g);
+	grade=atof(g.c_str());
+	continue;
+      }
+    gradedb.push_back(grade);  
+}
+}
+
+
+void find_av_mean()
+{ vector<double>::size_type gradedb_sz = gradedb.size();
+  for(int j=0;j<gradedb_sz;j++)
+    avg+=gradedb[j];    
+
+avg=avg/gradedb[j]; //calculating the average
+
+  for(j=0;j<gradedb_sz;j++)
+    dev+=pow((gradedb[j]-avg),2.0);
+
+  dev=sqrt(dev/gradedb_sz);
+}
